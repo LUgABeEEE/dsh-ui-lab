@@ -108,9 +108,7 @@ its own runtime, so plain `npx playwright install chromium` is enough.
 
 ## Install
 
-> `dsh-ui-lab` is not published to the npm registry yet. Until the first
-> release, install from a checkout or from an `npm pack` tarball; the commands
-> below show the intended global/npx flow.
+> Published on the npm registry as [`dsh-ui-lab`](https://www.npmjs.com/package/dsh-ui-lab).
 
 ```bash
 npm install -g dsh-ui-lab

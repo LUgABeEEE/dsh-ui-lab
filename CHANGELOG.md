@@ -36,8 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2026-10-30
 
-First packaged snapshot. Install from a checkout or from an `npm pack` tarball
-until the package is published to the npm registry.
+First packaged snapshot, published to the npm registry as `dsh-ui-lab@0.1.0`.
 
 ### Added — P0 capability set
 

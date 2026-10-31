@@ -49,7 +49,8 @@
     "lint": "node scripts/lint.mjs",
     "test": "node --test",
     "shot": "node src/cli.mjs shot",
-    "test:browser": "node --test test/web-fixture.test.mjs"
+    "test:browser": "node --test test/web-fixture.test.mjs",
+    "prepublishOnly": "npm run lint && npm test"
   },
   "peerDependencies": {
     "playwright": ">=1.40.0"
@@ -61,5 +62,8 @@
   },
   "devDependencies": {
     "playwright": "^1.64.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

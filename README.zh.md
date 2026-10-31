@@ -70,8 +70,7 @@ Windows 上不需要任何 Linux 专属依赖：Playwright 的 Windows Chromium 
 
 ## 安装
 
-> `dsh-ui-lab` 尚未发布到 npm registry。首个版本发布前请从源码目录或 `npm pack`
-> 产物安装；下面的全局/npx 命令是预期用法。
+> 已发布到 npm registry：[`dsh-ui-lab`](https://www.npmjs.com/package/dsh-ui-lab)。
 
 ```bash
 npm install -g dsh-ui-lab
