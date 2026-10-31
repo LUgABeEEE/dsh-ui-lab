@@ -30,6 +30,9 @@ jobs:
         # The browser-level fixture tests in test/web-fixture.test.mjs skip when
         # Chromium is unavailable, so the default matrix stays browser-free. The
         # opt-in job below exercises them with Chromium installed.
+      - name: The packed tarball installs and its CLI runs
+        if: matrix.node == 22
+        run: npm run check:package
 
   browser-fixture:
     name: browser fixture (manual)

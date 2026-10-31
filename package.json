@@ -50,7 +50,8 @@
     "test": "node --test",
     "shot": "node src/cli.mjs shot",
     "test:browser": "node --test test/web-fixture.test.mjs",
-    "prepublishOnly": "npm run lint && npm test"
+    "prepublishOnly": "npm run lint && npm test && npm run check:package",
+    "check:package": "node scripts/check-package.mjs"
   },
   "peerDependencies": {
     "playwright": ">=1.40.0"

@@ -18,6 +18,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### CI
+
+- `scripts/check-package.mjs`: pack the package, install the tarball into a
+  throwaway prefix and run the CLI from it (`--version`, `list`), plus a check
+  that the `files` allowlist still ships every module. Runs in CI (node 22) and
+  in `prepublishOnly`, so a broken allowlist cannot reach the registry.
+
 ### Added
 
 - `--open <label>`: click a sidebar row (usually a plugin entry) before capturing,
