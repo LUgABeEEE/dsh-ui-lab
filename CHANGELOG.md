@@ -23,9 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2026-10-30
 
-First packaged snapshot. The repository is private and the package is not
-published to the npm registry yet; until it is, install from a checkout or from
-an `npm pack` tarball.
+First packaged snapshot. Install from a checkout or from an `npm pack` tarball
+until the package is published to the npm registry.
 
 ### Added — P0 capability set
 
