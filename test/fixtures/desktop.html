@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DeepSeek Harness — desktop fixture</title>
+<style>
+  :root { color-scheme: light; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  /* The stock desktop shell does not reflow below this width; that is exactly
+     the failure mode dsh-ui-lab is meant to expose at phone widths. */
+  body {
+    min-width: 960px;
+    font: 14px/1.45 -apple-system, "Segoe UI", system-ui, sans-serif;
+    color: #1f2328;
+    background: #fff;
+  }
+  .dsh-app { display: grid; grid-template-columns: 64px 300px minmax(0, 1fr); min-height: 100vh; }
+  .dsh-rail {
+    display: flex; flex-direction: column; align-items: center; gap: 18px;
+    padding: 16px 0; border-right: 1px solid #d8dee4; background: #f6f8fa;
+  }
+  .dsh-rail .mark {
+    width: 30px; height: 30px; border-radius: 50%; background: #1f2328; color: #fff;
+    display: grid; place-items: center; font-size: 11px; font-weight: 700;
+  }
+  .dsh-rail .icon { width: 26px; height: 26px; border: 1px solid #afb8c1; border-radius: 50%; }
+  .dsh-list { border-right: 1px solid #d8dee4; background: #fbfcfd; padding: 18px 16px; }
+  .dsh-list h2 { margin: 0 0 14px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #57606a; }
+  .dsh-item { padding: 10px 12px; border-radius: 8px; margin-bottom: 6px; background: #fff; border: 1px solid #e4e8ec; }
+  .dsh-item strong { display: block; font-size: 13px; }
+  .dsh-item span { color: #6e7781; font-size: 12px; }
+  .dsh-main { padding: 28px 36px; }
+  .dsh-main h1 { margin: 0 0 6px; font-size: 26px; }
+  .dsh-main p { margin: 0 0 22px; color: #57606a; }
+  .dsh-composer {
+    border: 1px solid #d0d7de; border-radius: 14px; padding: 18px; max-width: 900px;
+    background: #fff; box-shadow: 0 8px 24px rgb(31 35 40 / 6%);
+  }
+  .dsh-composer .hint { color: #8c959f; }
+  .dsh-composer .row { display: flex; gap: 10px; margin-top: 28px; align-items: center; }
+  .dsh-pill { border: 1px solid #d0d7de; border-radius: 999px; padding: 6px 12px; color: #57606a; font-size: 12px; }
+  .dsh-send { margin-left: auto; width: 40px; height: 40px; border-radius: 50%; background: #a8c7fa; }
+  footer { position: fixed; right: 24px; bottom: 20px; color: #8c959f; font-size: 12px; }
+</style>
+</head>
+<body>
+  <div class="dsh-app" data-fixture="desktop">
+    <aside class="dsh-rail" aria-label="Primary">
+      <div class="mark">DS</div>
+      <div class="icon"></div>
+      <div class="icon"></div>
+      <div class="icon"></div>
+      <div class="icon"></div>
+      <div class="icon"></div>
+    </aside>
+    <section class="dsh-list" aria-label="Sessions">
+      <h2>Sessions</h2>
+      <div class="dsh-item"><strong>Current session</strong><span>fixture · just now</span></div>
+      <div class="dsh-item"><strong>Mobile layout audit</strong><span>yesterday</span></div>
+      <div class="dsh-item"><strong>Tablet proportions</strong><span>2 days ago</span></div>
+      <div class="dsh-item"><strong>Stock web overflow</strong><span>last week</span></div>
+    </section>
+    <main class="dsh-main">
+      <h1>Into the Unknown</h1>
+      <p>Desktop three-column shell rendered at a phone-width viewport.</p>
+      <div class="dsh-composer">
+        <div class="hint">Describe what you want to build, / commands, @ files or sessions</div>
+        <div class="row">
+          <span class="dsh-pill">+</span>
+          <span class="dsh-pill">Tools</span>
+          <span class="dsh-pill">Memory</span>
+          <span class="dsh-pill">Mic</span>
+          <span class="dsh-send"></span>
+        </div>
+      </div>
+    </main>
+  </div>
+  <footer>dsh-ui-lab fixture</footer>
+</body>
+</html>

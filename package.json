@@ -1,0 +1,65 @@
+{
+  "name": "dsh-ui-lab",
+  "version": "0.1.0",
+  "description": "A UI validation tool built for DeepSeek Harness (DSH): load DSH surfaces at real device proportions (phones, tablets) in headless Chromium and get screenshots, layout measurements and matrix reports.",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-mobile",
+    "ui-validation",
+    "device-proportions",
+    "viewport",
+    "responsive",
+    "debugging",
+    "playwright",
+    "headless",
+    "mobile",
+    "tablet",
+    "screenshot"
+  ],
+  "license": "MIT",
+  "author": "LUgABeEEE",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LUgABeEEE/dsh-ui-lab.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LUgABeEEE/dsh-ui-lab/issues"
+  },
+  "homepage": "https://github.com/LUgABeEEE/dsh-ui-lab#readme",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "dsh-ui-lab": "src/cli.mjs"
+  },
+  "files": [
+    "src/",
+    "profiles/",
+    "docs/",
+    "README.md",
+    "README.zh.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "lint": "node scripts/lint.mjs",
+    "test": "node --test",
+    "shot": "node src/cli.mjs shot",
+    "test:browser": "node --test test/web-fixture.test.mjs"
+  },
+  "peerDependencies": {
+    "playwright": ">=1.40.0"
+  },
+  "peerDependenciesMeta": {
+    "playwright": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1"
+  }
+}

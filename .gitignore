@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Local run artifacts (screenshots, measurements, reports)
+.shots/
+.cache/
+coverage/
+*.tgz
+
+# Playwright artifacts
+playwright-report/
+blob-report/
+test-results/
+playwright/.cache/
+
+# Local state and credentials — never commit paired-device cookies
+.auth/
+.env
+.env.*
+!.env.example
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Logs
+*.log

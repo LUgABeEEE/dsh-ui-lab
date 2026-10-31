@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "profiles": [
+    {
+      "id": "phone-360x800",
+      "label": "Android 360×800",
+      "category": "phone",
+      "viewport": { "width": 360, "height": 800 },
+      "deviceScaleFactor": 3,
+      "isMobile": true,
+      "hasTouch": true,
+      "platform": "android",
+      "userAgent": "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36",
+      "notes": "Most common Android CSS viewport; Chrome on Android."
+    },
+    {
+      "id": "phone-375x667",
+      "label": "iPhone SE (2nd / 3rd generation)",
+      "category": "phone",
+      "viewport": { "width": 375, "height": 667 },
+      "deviceScaleFactor": 2,
+      "isMobile": true,
+      "hasTouch": true,
+      "platform": "ios",
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+      "notes": "Compact iOS width; the smallest iPhone viewport still in wide use."
+    },
+    {
+      "id": "phone-390x844",
+      "label": "iPhone 13 / 14 / 15",
+      "category": "phone",
+      "viewport": { "width": 390, "height": 844 },
+      "deviceScaleFactor": 3,
+      "isMobile": true,
+      "hasTouch": true,
+      "platform": "ios",
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+      "notes": "390×844 is the iPhone 13 / 14 CSS viewport; iPhone 15 and 15 Pro report 393×852 (see phone-393x852)."
+    },
+    {
+      "id": "phone-393x852",
+      "label": "iPhone 15 Pro",
+      "category": "phone",
+      "viewport": { "width": 393, "height": 852 },
+      "deviceScaleFactor": 3,
+      "isMobile": true,
+      "hasTouch": true,
+      "platform": "ios",
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+      "notes": "Dynamic Island generation; iPhone 15 and 15 Pro both report this viewport."
+    },
+    {
+      "id": "phone-412x915",
+      "label": "Pixel 7",
+      "category": "phone",
+      "viewport": { "width": 412, "height": 915 },
+      "deviceScaleFactor": 2.625,
+      "isMobile": true,
+      "hasTouch": true,
+      "platform": "android",
+      "userAgent": "Mozilla/5.0 (Linux; Android 15; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36",
+      "notes": "Pixel 7 runs at 2.625x; fractional device pixel ratios are intentional."
+    },
+    {
+      "id": "phone-430x932",
+      "label": "iPhone 15 Pro Max",
+      "category": "phone",
+      "viewport": { "width": 430, "height": 932 },
+      "deviceScaleFactor": 3,
+      "isMobile": true,
+      "hasTouch": true,
+      "platform": "ios",
+      "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+      "notes": "Largest current iPhone CSS viewport."
+    },
+    {
+      "id": "tablet-768x1024",
+      "label": "iPad mini",
+      "category": "tablet",
+      "viewport": { "width": 768, "height": 1024 },
+      "deviceScaleFactor": 2,
+      "isMobile": true,
+      "hasTouch": true,
+      "platform": "ios",
+      "userAgent": "Mozilla/5.0 (iPad; CPU OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+      "notes": "iPad mini 5 and earlier report 768×1024; iPad mini 6 is 744×1133."
+    },
+    {
+      "id": "tablet-800x1280",
+      "label": "Galaxy Tab",
+      "category": "tablet",
+      "viewport": { "width": 800, "height": 1280 },
+      "deviceScaleFactor": 2,
+      "isMobile": true,
+      "hasTouch": true,
+      "platform": "android",
+      "userAgent": "Mozilla/5.0 (Linux; Android 14; SM-X205) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+      "notes": "Galaxy Tab A 8.0-class tablet; Android Chrome uses a non-mobile user agent."
+    },
+    {
+      "id": "tablet-820x1180",
+      "label": "iPad Air 11",
+      "category": "tablet",
+      "viewport": { "width": 820, "height": 1180 },
+      "deviceScaleFactor": 2,
+      "isMobile": true,
+      "hasTouch": true,
+      "platform": "ios",
+      "userAgent": "Mozilla/5.0 (iPad; CPU OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+      "notes": "iPad Air 11-inch (M2 and later) reports 820×1180."
+    },
+    {
+      "id": "tablet-834x1194",
+      "label": "iPad Pro 11",
+      "category": "tablet",
+      "viewport": { "width": 834, "height": 1194 },
+      "deviceScaleFactor": 2,
+      "isMobile": true,
+      "hasTouch": true,
+      "platform": "ios",
+      "userAgent": "Mozilla/5.0 (iPad; CPU OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1",
+      "notes": "iPad Pro 11-inch reports 834×1194."
+    }
+  ]
+}

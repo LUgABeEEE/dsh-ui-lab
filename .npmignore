@@ -1,0 +1,8 @@
+# npm pack uses the "files" allowlist in package.json. This file is a second
+# guard against accidentally publishing local state or tests.
+.cache/
+.shots/
+test/
+.github/
+node_modules/
+*.tgz
