@@ -51,6 +51,11 @@ jobs:
       - run: npm run lint
       - run: npm test
 
+      - name: The token must authenticate
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm whoami
+
       - name: Publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
