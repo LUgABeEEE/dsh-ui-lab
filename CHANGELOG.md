@@ -18,6 +18,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-11-01
+
+### CI
+
+- Releases no longer carry a long-lived npm token: the package is bound to this
+  repository through npm **trusted publishing**, so `publish.yml` exchanges a
+  GitHub OIDC identity for a short-lived credential (`npx npm@12 publish
+  --provenance`). The `NPM_TOKEN` secret can be removed.
+- `scripts/check-package.mjs` installs the packed tarball and runs the CLI from
+  it, in CI and in `prepublishOnly`.
+
 ### CI
 
 - `scripts/check-package.mjs`: pack the package, install the tarball into a

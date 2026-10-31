@@ -1,6 +1,6 @@
 {
   "name": "dsh-ui-lab",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A UI validation tool built for DeepSeek Harness (DSH): load DSH surfaces at real device proportions (phones, tablets) in headless Chromium and get screenshots, layout measurements, matrix reports and a doctor that explains a broken first run.",
   "keywords": [
     "dsh",
