@@ -23,17 +23,31 @@ test('reads a token file only when it is mode 600', () => {
   })
 })
 
-test('refuses a token file that is readable by group or others', () => {
-  withTokenFile(0o644, 'fixture-token-123', file => {
-    assert.throws(
-      () => readTokenFile(file),
-      error => {
-        assert.ok(error instanceof RuntimeError)
-        assert.match(error.message, /mode 600/)
-        assert.doesNotMatch(error.message, /fixture-token-123/)
-        return true
-      },
-    )
+test(
+  'refuses a token file that is readable by group or others',
+  {
+    // `mode 600` is a POSIX permission bit; on Windows src/token.mjs deliberately
+    // skips the check because the bits are not meaningful there (ACLs are used).
+    skip: process.platform === 'win32' ? 'POSIX mode bits are not enforced on Windows (ACLs are used)' : false,
+  },
+  () => {
+    withTokenFile(0o644, 'fixture-token-123', file => {
+      assert.throws(
+        () => readTokenFile(file),
+        error => {
+          assert.ok(error instanceof RuntimeError)
+          assert.match(error.message, /mode 600/)
+          assert.doesNotMatch(error.message, /fixture-token-123/)
+          return true
+        },
+      )
+    })
+  },
+)
+
+test('on Windows the token file mode is not checked (ACLs are the platform equivalent)', { skip: process.platform !== 'win32' }, () => {
+  withTokenFile(0o644, 'windows-token', file => {
+    assert.equal(readTokenFile(file), 'windows-token')
   })
 })
 

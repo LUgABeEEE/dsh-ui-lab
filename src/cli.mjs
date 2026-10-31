@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * dsh-ui-lab — debug the DeepSeek Harness UI on Linux, headless.
+ * dsh-ui-lab — debug the DeepSeek Harness UI on Linux and Windows, headless.
  *
  * Commands: list, shot, measure, matrix. Capture commands load Playwright lazily
  * so `list`, `--help` and the test suite never need a browser.
@@ -17,7 +17,7 @@ import { expandMatrix, selectOne } from './selection.mjs'
 const PACKAGE_ROOT = dirname(dirname(fileURLToPath(import.meta.url)))
 const pkg = JSON.parse(readFileSync(join(PACKAGE_ROOT, 'package.json'), 'utf8'))
 
-const USAGE = `dsh-ui-lab ${pkg.version} — headless DSH UI debugging on Linux
+const USAGE = `dsh-ui-lab ${pkg.version} — headless DSH UI debugging on Linux and Windows
 
 Usage:
   dsh-ui-lab list    [--class <phone|tablet|foldable>] [--json]
@@ -53,7 +53,7 @@ Environment:
   DSH_UI_LAB_ADMIN_URL     Mobile pairing admin base (default: DSH_UI_LAB_URL)
   DSH_UI_LAB_MOBILE_GATEWAY  dsh-mobile gateway origin override
   DSH_UI_LAB_WEB_TOKEN     DSH web launch token (when the URL is bare)
-  DSH_UI_LAB_WEB_TOKEN_FILE  File containing the token; must be mode 600
+  DSH_UI_LAB_WEB_TOKEN_FILE  File containing the token; mode 600 is enforced on POSIX only (ACLs on Windows)
   DSH_UI_LAB_STATE_DIR     Pairing cache directory (default ./.cache)
   DSH_UI_LAB_SHOTS_DIR     Default output directory (default ./.shots)
   DSH_UI_LAB_WAIT_MS       Default --wait

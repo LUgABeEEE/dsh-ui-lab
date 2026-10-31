@@ -2,7 +2,7 @@
 
 **A UI validation tool built for DSH.** Lay the same DeepSeek Harness surface
 across a wall of real device proportions and see exactly where it starts to
-break — on a Linux box, without picking up a phone.
+break — on Linux or Windows, without picking up a phone.
 
 A DSH interface has to survive a 360 px Android phone, a 430 px iPhone, a
 768 px tablet and everything between. Checking each one by hand is slow and
@@ -76,14 +76,35 @@ reports whichever is true — judge by the numbers, not by an assumption. See
 
 ## Requirements
 
-- Linux with the shared libraries Chromium needs.
+- **Linux or Windows** (macOS should work, but is not covered by CI).
 - Node.js >= 20.
-- Playwright and its Chromium (`npx playwright install chromium`).
+- Playwright and its Chromium (`npx playwright install chromium`; on a bare
+  Debian/Ubuntu box `npx playwright install --with-deps chromium` also installs
+  the shared libraries Chromium needs).
 - A DSH instance:
   - stock web: the DSH web UI, by default `http://127.0.0.1:3080`. DSH protects
     it with a per-process launch token; see [Authentication](#authentication).
   - dsh-mobile: **Mobile access → LAN** enabled in the desktop UI. The gateway
     origin is discovered from the admin status API.
+
+### Windows
+
+Nothing Linux-specific is required: Playwright's Windows Chromium build carries
+its own runtime, so plain `npx playwright install chromium` is enough.
+
+- Playwright is resolved in the same order as on Linux:
+  `--playwright` / `DSH_UI_LAB_PLAYWRIGHT` → the package's own `node_modules` →
+  `$DSH_HOME\profiles\web` → `$DSH_HOME\profiles\desktop`. A DSH desktop install
+  usually already ships it, so no separate global install is needed.
+- `DSH_UI_LAB_WEB_TOKEN_FILE`: the `mode 600` check is POSIX-only and is skipped
+  on Windows, where file permissions come from ACLs instead. Keep the token file
+  under your user profile (for example `%USERPROFILE%\.dsh\web-token`) and treat
+  it as a secret; there is no `chmod` to run.
+- Paths use native Windows syntax. In PowerShell, quote paths that contain
+  spaces: `--out "$env:USERPROFILE\dsh-shots"`. Relative paths are resolved from
+  the current directory on every platform.
+- `npm test` and `npm run lint` run unchanged. The browser-level fixture tests
+  skip when Chromium is not installed.
 
 ## Install
 
@@ -238,8 +259,9 @@ per-process launch token. Give that token to the tool in one of three ways
 
 1. put the URL with its token in `--url`;
 2. export `DSH_UI_LAB_WEB_TOKEN`;
-3. put the token alone in a file with mode `600` and set
-   `DSH_UI_LAB_WEB_TOKEN_FILE` to its path.
+3. put the token alone in a file with mode `600` (POSIX; on Windows the mode
+   check is skipped and ACLs apply) and set `DSH_UI_LAB_WEB_TOKEN_FILE` to its
+   path.
 
 The tool exchanges the token for the signed cookie and continues on the clean
 URL. Tokens, CSRF cookies and storage state never appear in output, reports or

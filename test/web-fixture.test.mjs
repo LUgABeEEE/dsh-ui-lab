@@ -287,7 +287,13 @@ test('DSH_UI_LAB_WEB_TOKEN_FILE (mode 600) authenticates a bare URL', { timeout:
   }
 })
 
-test('a token file with the wrong mode fails before capture and never echoes the token', { timeout: 120_000 }, async t => {
+test('a token file with the wrong mode fails before capture and never echoes the token', {
+  timeout: 120_000,
+  // `mode 600` is POSIX-only; src/token.mjs intentionally skips the check on
+  // win32 (ACLs are the platform equivalent), so this CLI contract only exists
+  // on POSIX hosts. The win32 semantics are covered by test/web-token.test.mjs.
+  skip: process.platform === 'win32' ? 'POSIX mode bits are not enforced on Windows (ACLs are used)' : false,
+}, async t => {
   const server = await startFixtureServer({ token: TOKEN })
   const out = mkdtempSync(join(tmpdir(), 'dsh-ui-lab-bad-token-'))
   const secrets = mkdtempSync(join(tmpdir(), 'dsh-ui-lab-secrets-bad-'))

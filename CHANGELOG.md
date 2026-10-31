@@ -20,6 +20,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Panel and touch-target metrics: `metrics.panel` (width / left / right /
   `panelNav`) and `metrics.touchTargets` (count / smallest / how many under 44 px),
   carried into `summary.json` and two new `report.html` columns.
+- Windows support: CI runs lint plus `node --test` on `ubuntu-latest` and
+  `windows-latest` (Node.js 20 and 22), and the docs describe the Windows
+  requirements — Playwright resolution through `$DSH_HOME\profiles\web` /
+  `desktop`, Chromium installation, native path syntax and the ACL-based
+  `DSH_UI_LAB_WEB_TOKEN_FILE` semantics.
+
+### Fixed
+
+- The test suite now passes on Windows. Path assertions are built with
+  `node:path` instead of hard-coded POSIX roots, and the two `mode 600`
+  token-file tests skip on Windows, where permissions are ACL-based and
+  `src/token.mjs` already skips the mode check. The POSIX assertions still run on
+  Linux CI, so the POSIX behaviour stays covered.
 
 ## [0.1.0] - 2026-10-30
 

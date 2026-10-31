@@ -1,6 +1,6 @@
 # dsh-ui-lab
 
-**为 DSH 而生的 UI 验证工具。** 把同一份 DeepSeek Harness 界面铺到一整面真实设备比例上，一眼看出它从哪一档开始坏——在 Linux 上跑，不用拿起手机。
+**为 DSH 而生的 UI 验证工具。** 把同一份 DeepSeek Harness 界面铺到一整面真实设备比例上，一眼看出它从哪一档开始坏——在 Linux / Windows 上跑，不用拿起手机。
 
 一个 DSH 界面得同时扛住 360px 的安卓机、430px 的 iPhone、768px 的平板，以及中间所有档位。逐个手验又慢又不可复现。`dsh-ui-lab` 为每一种比例配好真实的 CSS 视口、设备像素比、触摸标志与 UA，加载真正的 DSH surface，输出截图与布局度量；一次跑一整组比例，还能生成矩阵报告——于是 UI 改动可以**对比**，而不是靠**眼估**。
 
@@ -52,12 +52,21 @@ DSH 面向手机尺寸的屏幕有两种不同的东西，`dsh-ui-lab` 都能打
 
 ## 环境要求
 
-- Linux，且具备 Chromium 需要的系统库。
+- **Linux 或 Windows**（macOS 预期可用，但未纳入 CI）。
 - Node.js >= 20。
-- Playwright 及其 Chromium（`npx playwright install chromium`）。
+- Playwright 及其 Chromium（`npx playwright install chromium`；Debian/Ubuntu 裸机可加 `--with-deps` 一并安装 Chromium 需要的系统库）。
 - 一个 DSH 实例：
   - stock web：DSH web UI，默认 `http://127.0.0.1:3080`。DSH 用 per-process 启动 token 保护它，见[认证](#认证)。
   - dsh-mobile：桌面端开启 **移动访问 → 局域网**；网关地址由 admin status API 发现。
+
+### Windows 说明
+
+Windows 上不需要任何 Linux 专属依赖：Playwright 的 Windows Chromium 自带运行时，`npx playwright install chromium` 即可。
+
+- Playwright 解析顺序与 Linux 相同：`--playwright` / `DSH_UI_LAB_PLAYWRIGHT` → 本包的 `node_modules` → `$DSH_HOME\profiles\web` → `$DSH_HOME\profiles\desktop`。DSH 桌面安装通常已自带，无需另装。
+- `DSH_UI_LAB_WEB_TOKEN_FILE`：`mode 600` 检查只属于 POSIX，Windows 上会跳过（改用 ACL）。token 文件放用户目录下（如 `%USERPROFILE%\.dsh\web-token`），按密钥对待，不需要 `chmod`。
+- 路径用 Windows 原生写法；PowerShell 中含空格的路径要加引号，例如 `--out "$env:USERPROFILE\dsh-shots"`。相对路径在所有平台上都相对当前目录解析。
+- `npm test` 与 `npm run lint` 直接可用；没有安装 Chromium 时浏览器用例会自动跳过。
 
 ## 安装
 
@@ -196,7 +205,7 @@ dsh-ui-lab matrix --surface mobile --class phone --open Todos \
 
 1. 把带 token 的 URL 作为 `--url`；
 2. 导出 `DSH_UI_LAB_WEB_TOKEN`；
-3. 把 token 单独放进 mode `600` 的文件，用 `DSH_UI_LAB_WEB_TOKEN_FILE` 指向它。
+3. 把 token 单独放进 mode `600` 的文件（POSIX 语义；Windows 上跳过 mode 检查、以 ACL 为准），用 `DSH_UI_LAB_WEB_TOKEN_FILE` 指向它。
 
 工具用 token 换到签名 cookie 后继续访问干净 URL。token、CSRF cookie 与 storage state 不会出现在输出、报告或截图文件名里。`dsh-mobile` surface 不用这个 token，它走设备配对。
 
