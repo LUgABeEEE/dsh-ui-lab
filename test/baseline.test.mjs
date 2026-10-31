@@ -20,10 +20,21 @@ function withTempDir(run) {
 }
 
 test('baselinePaths names files the same way capture does', () => {
-  const paths = baselinePaths('/tmp/out', '/tmp/base', 'mobile', 'phone-390x844')
+  // Paths are joined with node:path, so build the fixture with the same rules
+  // instead of hard-coding POSIX separators: the naming rule is what this test
+  // pins, not the platform's separator.
+  const outDir = join(tmpdir(), 'dsh-ui-lab-out')
+  const baselineDir = join(tmpdir(), 'dsh-ui-lab-base')
+  const paths = baselinePaths(outDir, baselineDir, 'mobile', 'phone-390x844')
   assert.equal(paths.name, 'mobile__phone-390x844.png')
-  assert.equal(paths.current, '/tmp/out/mobile__phone-390x844.png')
-  assert.equal(paths.reference, '/tmp/base/mobile__phone-390x844.png')
+  assert.equal(paths.current, join(outDir, 'mobile__phone-390x844.png'))
+  assert.equal(paths.reference, join(baselineDir, 'mobile__phone-390x844.png'))
+  if (process.platform !== 'win32') {
+    // Keep the original POSIX expectations asserted on POSIX hosts.
+    const posix = baselinePaths('/tmp/out', '/tmp/base', 'mobile', 'phone-390x844')
+    assert.equal(posix.current, '/tmp/out/mobile__phone-390x844.png')
+    assert.equal(posix.reference, '/tmp/base/mobile__phone-390x844.png')
+  }
 })
 
 test('writeBaseline copies the screenshots and records their hashes', () => {
