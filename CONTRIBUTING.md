@@ -6,7 +6,7 @@ logic**, **tests** or **documentation**.
 
 ## Development setup
 
-Requirements: Linux, Node.js >= 20 and npm >= 10.
+Requirements: Linux or Windows, Node.js >= 20 and npm >= 10.
 
 ```bash
 npm ci                              # installs the optional Playwright dev dependency
@@ -15,11 +15,23 @@ npm link                            # optional: run `dsh-ui-lab` from PATH
 ```
 
 On a bare Linux box, `npx playwright install --with-deps chromium` also installs
-the shared libraries Chromium needs (it asks for sudo).
+the shared libraries Chromium needs (it asks for sudo). On Windows the plain
+`npx playwright install chromium` is enough: the Windows build carries its own
+runtime, and no system package is needed.
 
 The browser tests skip when Playwright or its Chromium is unavailable, so a
 browser-free environment can still run the suite. Install Chromium to actually
 exercise the capture path.
+
+Windows notes:
+
+- `npm test` and `npm run lint` are platform-neutral. Two tests pin the POSIX
+  `mode 600` contract of `DSH_UI_LAB_WEB_TOKEN_FILE`; they skip on Windows
+  because file permissions there are ACL-based and `src/token.mjs` deliberately
+  skips the mode check (`process.platform !== 'win32'`). The same tests still run
+  on Linux CI, so the POSIX branch stays covered.
+- Use native paths (`C:\Users\me\shots`); quote paths with spaces in PowerShell.
+- There is no `chmod` step for the token file; keep it under `%USERPROFILE%`.
 
 ## Running the checks
 
@@ -28,10 +40,12 @@ npm test        # node --test: unit tests + local-fixture browser tests
 npm run lint    # node --check over every module + JSON parsing
 ```
 
-`npm test` and `npm run lint` run in the default CI matrix on Node.js 20 and 22.
-That job does not download a browser; the browser-level tests in
-`test/web-fixture.test.mjs` start a local `node:http` server against
-`test/fixtures/desktop.html` and skip cleanly without Chromium.
+`npm test` and `npm run lint` run in the default CI matrix on Node.js 20 and 22,
+on both `ubuntu-latest` and `windows-latest`. That job does not download a
+browser; the browser-level tests in `test/web-fixture.test.mjs` start a local
+`node:http` server against `test/fixtures/desktop.html` and skip cleanly without
+Chromium. The two POSIX `mode 600` tests skip on the Windows leg (see the Windows
+notes above) and still run on the Ubuntu leg.
 
 The browser tests also have a **separate manual CI job** (Actions → CI → Run
 workflow → job "browser fixture (manual)"), which installs Chromium and runs

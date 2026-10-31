@@ -155,6 +155,10 @@ package's own dependency, then `$DSH_HOME/profiles/web` and
 `$DSH_HOME/profiles/desktop`. Set `PLAYWRIGHT_BROWSERS_PATH` if the browser
 download lives somewhere else.
 
+On Windows, `npx playwright install chromium` is enough (the Windows build
+carries its own runtime; there is no `--with-deps` step), and the same resolver
+order applies with `$DSH_HOME\profiles\web` / `desktop` as the usual anchors.
+
 Do not install a browser into a directory the CLI cannot see and then wonder why
 `list` works but `shot` does not: `list` never needs Playwright, capture always
 does.
