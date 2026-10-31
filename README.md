@@ -362,6 +362,23 @@ These are properties of the environment, not bugs to file:
 - [Contributing](CONTRIBUTING.md) — setup, tests, commit style, secrets.
 - [Changelog](CHANGELOG.md).
 
+## Releasing
+
+Publishing is driven by [`.github/workflows/publish.yml`](.github/workflows/publish.yml):
+push a tag that matches `package.json` and the workflow runs lint + the test suite,
+then publishes with npm provenance.
+
+```bash
+npm version patch --no-git-tag-version   # or edit package.json by hand
+git commit -am "chore: 0.1.1"
+git tag v0.1.1 && git push origin main v0.1.1
+```
+
+The job needs the repository secret `NPM_TOKEN` — a granular access token with
+"Read and write" publish permission for `dsh-ui-lab`. `workflow_dispatch` runs
+`npm publish --dry-run` first, so the pipeline can be exercised without touching
+the registry.
+
 ## License
 
 MIT © 2026 LUgABeEEE. See [LICENSE](LICENSE).

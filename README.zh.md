@@ -279,6 +279,20 @@ durationMs   截图墙钟耗时
 - [Contributing](CONTRIBUTING.md) —— 环境、测试、提交规范、凭据。
 - [Changelog](CHANGELOG.md)。
 
+## 发布
+
+发布由 [`.github/workflows/publish.yml`](.github/workflows/publish.yml) 驱动：推一个与
+`package.json` 版本一致的 tag，工作流会跑 lint 与单测，然后带 npm provenance 发布。
+
+```bash
+npm version patch --no-git-tag-version   # 或手改 package.json
+git commit -am "chore: 0.1.1"
+git tag v0.1.1 && git push origin main v0.1.1
+```
+
+需要仓库 secret `NPM_TOKEN`（对 `dsh-ui-lab` 有读写的 granular token）。`workflow_dispatch`
+默认先跑 `npm publish --dry-run`，不碰 registry 也能验一遍流水线。
+
 ## 许可证
 
 MIT © 2026 LUgABeEEE。见 [LICENSE](LICENSE)。
