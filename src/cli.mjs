@@ -10,6 +10,7 @@ import { dirname, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from './args.mjs'
 import { getDefaults } from './defaults.mjs'
+import { doctor } from './doctor.mjs'
 import { UsageError, scrub } from './errors.mjs'
 import { list } from './profiles.mjs'
 import { expandMatrix, selectOne } from './selection.mjs'
@@ -24,6 +25,7 @@ Usage:
   dsh-ui-lab shot    --profile <id|name> [options]
   dsh-ui-lab measure --profile <id|name> [options]
   dsh-ui-lab matrix  [--class <category>] [--profiles <ids|names>] [options]
+  dsh-ui-lab doctor  [--json] [--playwright <module>]
 
 Options (shot / measure / matrix):
   --surface <web|mobile>   Surface to open (default: web)
@@ -173,6 +175,15 @@ function matrixText(summary, htmlPath, jsonPath) {
         : ''),
   )
   return `${lines.join('\n')}\n`
+}
+
+async function commandDoctor(options) {
+  const defaults = getDefaults()
+  const explicit =
+    typeof options.playwright === 'string' && options.playwright.trim() !== ''
+      ? options.playwright.trim()
+      : defaults.playwrightModule
+  return doctor({ json: options.json === true, dshHome: defaults.dshHome, explicitPlaywright: explicit })
 }
 
 async function commandList(options) {
@@ -335,6 +346,8 @@ async function main(argv) {
       return commandCapture(parsed.command, parsed.options)
     case 'matrix':
       return commandMatrix(parsed.options)
+    case 'doctor':
+      return commandDoctor(parsed.options)
     default:
       throw new UsageError(`unknown command "${parsed.command}"`)
   }

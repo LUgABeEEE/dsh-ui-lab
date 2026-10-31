@@ -150,6 +150,9 @@ work without it; capture commands do not.
 ## Quick start
 
 ```bash
+# 0. Is this machine ready? (Node, Playwright, Chromium, DSH reachability)
+dsh-ui-lab doctor
+
 # 1. See the device profiles
 dsh-ui-lab list
 dsh-ui-lab list --class phone --json

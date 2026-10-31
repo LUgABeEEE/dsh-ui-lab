@@ -2,7 +2,7 @@
 import { UsageError } from './errors.mjs'
 import { PROFILE_CATEGORIES } from './profiles.mjs'
 
-export const COMMANDS = Object.freeze(['list', 'shot', 'matrix', 'measure'])
+export const COMMANDS = Object.freeze(['list', 'shot', 'matrix', 'measure', 'doctor'])
 export const SURFACES = Object.freeze(['mobile', 'web'])
 
 const BOOLEAN_FLAGS = new Set(['json', 'fresh', 'help', 'version'])
@@ -123,6 +123,13 @@ export function validateCommand(command, options) {
     const unused = VALUE_FLAG_NAMES.filter(name => name !== 'class' && options[name] !== undefined)
     if (options.fresh !== false && options.fresh !== undefined) unused.push('fresh')
     if (unused.length > 0) fail(`--${unused[0]} is not used by list`)
+    return
+  }
+
+  if (command === 'doctor') {
+    const unused = VALUE_FLAG_NAMES.filter(name => name !== 'playwright' && options[name] !== undefined)
+    if (options.fresh !== false && options.fresh !== undefined) unused.push('fresh')
+    if (unused.length > 0) fail(`--${unused[0]} is not used by doctor`)
     return
   }
 

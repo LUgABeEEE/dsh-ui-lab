@@ -109,6 +109,9 @@ Playwright 是可选 peer 依赖：`list`、`--help` 与单测不需要它，截
 ## 快速开始
 
 ```bash
+# 0. 先看这台机器能不能跑（Node / Playwright / Chromium / DSH 可达性）
+dsh-ui-lab doctor
+
 # 1. 看机型
 dsh-ui-lab list
 dsh-ui-lab list --class phone --json

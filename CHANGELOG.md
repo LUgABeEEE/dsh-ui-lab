@@ -5,6 +5,17 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-10-31
+
+### Added
+
+- `dsh-ui-lab doctor`: one read-only command that answers "why did my first
+  capture fail" — Node.js version, Playwright resolution, the exact Chromium
+  binary and whether it exists, the device table, the pairing-cache directory,
+  and whether the DSH web URL answers (401 counts as reachable, it is the
+  launch-token gate). `--json` for scripts; exit 1 only for hard requirements.
+- Two tests pin the command contract and the check list.
+
 ## [Unreleased]
 
 ### Added
