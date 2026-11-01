@@ -337,15 +337,19 @@ report, and exits `1` if any row failed.
 These are properties of the environment, not bugs to file:
 
 - **Safe areas are zero.** `env(safe-area-inset-*)` resolves to `0px` in
-  Chromium, so notches, rounded corners and home indicators cannot be validated.
+  Chromium, so notches, rounded corners and home indicators cannot be validated. A real Android browser also reported `0px` (browser chrome consumes the insets), and a non-edge-to-edge App reported `0px` for a different reason — in the hosts tested here, only an edge-to-edge App produced non-zero values (a full-screen browser or installed PWA could too — not tested). See [Real devices](docs/real-devices.md).
 - **No WebView.** Android System WebView and iOS WKWebView differ from Chromium
   in UA, CSS support, caching and viewport behaviour. A page that works here is
-  not automatically proven inside an app.
+  not automatically proven inside an app — a measured Android WebView (Chrome 135) is documented in [Real devices](docs/real-devices.md), including how its numbers differed from the bundled Chromium.
 - **No real-device feel.** Thumb reach, tap-target comfort, scroll inertia,
   pinch zoom, haptics and soft-keyboard interaction are out of scope; the
-  `visualViewport` does not shrink like a device keyboard.
-- **dsh-mobile 0.8.0 is untested.** The tool was validated against the installed
-  dsh-mobile **0.7.1**; 0.8.0 is released but not exercised here.
+  `visualViewport` does not shrink like a device keyboard. Measured on a real App, the soft keyboard shrank the layout viewport 786 → 472 while the lab stays static — keyboard interaction has to be measured on a device.
+- **dsh-mobile 0.8.0 is now exercised too.** The tool was validated against the installed
+  dsh-mobile **0.7.1**; 0.8.0 has since been paired and captured through the
+  `mobile` surface (2026-10-31), and the Android App report is in
+  [Real devices](docs/real-devices.md); the full measured round is
+  [LUgABeEEE/dsh-adapt-packs#11](https://github.com/LUgABeEEE/dsh-adapt-packs/pull/11). Host-internal class names can still
+  change between releases — re-run the mobile surface after a host upgrade.
 - **TLS is not under test.** The dsh-mobile gateway uses a self-signed
   certificate and the harness ignores certificate errors on purpose.
 - **Foldables are not done.** `category: "foldable"` is reserved, with zero
@@ -359,6 +363,8 @@ These are properties of the environment, not bugs to file:
 ## Documentation
 
 - [Surfaces](docs/surfaces.md) — gateway discovery, pairing, tokens, overflow.
+- [Real devices](docs/real-devices.md) — what only a phone can prove, measured
+  Android deltas, and how to take the numbers.
 - [Profiles](docs/profiles.md) — the device table, reader API, adding one.
 - [Troubleshooting](docs/troubleshooting.md) — auth, pairing, overflow, TLS,
   Playwright.
