@@ -13,10 +13,12 @@ assumed.
 > Android 17 (SDK 37), 1280×2772 @520dpi (DPR **3.25**, CSS 394×853), official
 > dsh-mobile Android App **0.7.1**, WebView **Chrome/135.0.7049.79**
 > (MiuiBrowser 20.8.390923), gateway dsh-mobile **0.8.0**.
-> The lab run in the same session used Playwright **1.64 / Chromium 156**.
-> Full method and screenshots live in the adaptation repository:
-> [`docs/真机验证.md`](https://github.com/LUgABeEEE/dsh-adapt-packs/blob/main/docs/真机验证.md)
-> (Chinese).
+> The lab run in the same session used Playwright **1.64 / Chromium 156**
+> (`npx playwright --version`; `node -e "console.log(require('playwright/package.json').version)"`).
+> Full method and screenshots are in the adaptation repository, PR
+> [LUgABeEEE/dsh-adapt-packs#11](https://github.com/LUgABeEEE/dsh-adapt-packs/pull/11)
+> (`docs/真机验证.md`, Chinese). Once that PR merges, the stable link is
+> `https://github.com/LUgABeEEE/dsh-adapt-packs/blob/main/docs/真机验证.md`.
 
 ## What the lab can and cannot prove
 
@@ -56,6 +58,10 @@ adb devices -l
 adb forward tcp:9333 localabstract:chrome_devtools_remote   # or *_devtools_remote_<pid> of the app
 curl http://127.0.0.1:9333/json                             # page targets
 ```
+
+Engine versions were read from the device (`/json/version` reports `Browser`) and
+from the lab (`npx playwright --version`); record both, because they are not the
+same renderer.
 
 Then `chromium.connectOverCDP('http://127.0.0.1:9333')` and run the same
 measurement expression used in the lab (control counting, `getBoundingClientRect`,
