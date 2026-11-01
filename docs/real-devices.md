@@ -64,11 +64,14 @@ Verdict:
 
 - **Counting and threshold decisions agree.** The stock-web page matches
   7 / 28 / 7 exactly. On the dedicated-page panel the no-pack and both-packed
-  states match control-for-control (141 and 138; packed 44 / 0), and the
-  under-44 counts and minimum edges agree in every state (0 vs 0 packed;
-  3 / 20px vs 3 / 20px single-pack). The single-pack row differs by one control
-  per region (141 vs 140, 138 vs 137) because the virtualized market list renders
-  fewer items at the shorter viewport — a render difference, not a counting bug.
+  states match control-for-control (141 and 138; packed 44 / 0); the under-44
+  **counts** agree in every state (141/141 with no packs, 0/0 packed, 3/3
+  single-pack), and the minimum-edge **threshold decisions** agree (all under 44
+  with no packs; 20px vs 20px and 44px vs 44px in the packed rows). The no-pack
+  minimum-edge **value** differs (12.1 vs 14 — see the next bullet). The
+  single-pack row differs by one control per region (141 vs 140, 138 vs 137)
+  because the virtualized market list renders fewer items at the shorter
+  viewport — a render difference, not a counting bug.
 - **Absolute pixels are approximate.** The no-pack minimum edge is 12.1px in the
   lab and 14px on the device (−13.6%); the profile viewport is 1% narrower and
   7–15% taller; DPR is 3.0 vs 3.25 (−7.7%). Quote lab pixels as lab pixels, not
@@ -83,7 +86,9 @@ tolerates `HIT_TARGET − EPSILON` (43.5px) and its panel selector likewise
 includes checkbox/radio. The 141/138 numbers compared above were produced by
 that repository's measurement script (`measure.mjs`), which excludes
 checkbox/radio and uses `< 44px`. The pages compared here contain no
-checkbox/radio, so the three rules agree; on pages with checkboxes they will not.
+checkbox/radio and no control sits in the 43.5-44px band that the thresholds
+treat differently, so the three rules agree here; on pages with either they will
+not.
 
 ## How to take real-device numbers
 
