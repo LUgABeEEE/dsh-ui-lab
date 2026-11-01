@@ -15,10 +15,9 @@ assumed.
 > (MiuiBrowser 20.8.390923), gateway dsh-mobile **0.8.0**.
 > The lab run in the same session used Playwright **1.64 / Chromium 156**
 > (`npx playwright --version`; `node -e "console.log(require('playwright/package.json').version)"`).
-> Full method and screenshots are in the adaptation repository, PR
-> [LUgABeEEE/dsh-adapt-packs#11](https://github.com/LUgABeEEE/dsh-adapt-packs/pull/11)
-> (`docs/真机验证.md`, Chinese). Once that PR merges, the stable link is
-> `https://github.com/LUgABeEEE/dsh-adapt-packs/blob/main/docs/真机验证.md`.
+> Full method and screenshots are in the adaptation repository:
+> [`docs/真机验证.md`](https://github.com/LUgABeEEE/dsh-adapt-packs/blob/main/docs/真机验证.md)
+> (Chinese).
 
 ## What the lab can and cannot prove
 
@@ -48,6 +47,38 @@ Two consequences worth stating plainly:
 - the keyboard is a **layout** change on Android (`adjustResize` shrinks the
   layout viewport), not only a `visualViewport` shrink. A lab run that asserts
   keyboard behaviour would be proving the wrong model.
+
+## How accurate is `phone-390x844` against a measured device?
+
+Same session, same pages, counted with the same rule (visible controls under
+`[data-slot="main"]`, `min(width, height)`, `<44px`):
+
+| Metric | Lab `phone-390x844` | K90 Max browser | K90 Max App |
+| --- | --- | --- | --- |
+| Touch targets, stock-web welcome page | **7** / min **28** / 7 under 44 | **7** / min **28** / 7 under 44 | — |
+| Dedicated-page panel, no packs (slot · market) | 141 / **12.1** / 141 · 138 / **12.1** / 138 | — | 141 / **14** / 141 · 138 / **14** / 138 |
+| Same panel, both packs | 141 / **44** / **0** · 138 / **44** / **0** | — | 141 / **44** / **0** · 138 / **44** / **0** |
+| Same panel, `dshmarket-mobile` only | 141 / 20 / 3 · 138 / 44 / 0 | — | **140** / 20 / 3 · **137** / 44 / 0 |
+
+Verdict:
+
+- **Counting and threshold decisions are exact.** The stock-web page matches
+  7 / 28 / 7 exactly; the dedicated-page panel matches 141 and 138 in every
+  state, and both packed states are 44 / 0. The one-control difference in the
+  single-pack row is the virtualized market list rendering fewer items at the
+  shorter viewport, not a counting error.
+- **Absolute pixels are approximate.** The no-pack minimum edge is 12.1px in the
+  lab and 14px on the device (−13.6%); the profile viewport is 1% narrower and
+  7–15% taller; DPR is 3.0 vs 3.25 (−7.7%). Quote lab pixels as lab pixels, not
+  as device truth — the device line in this document is how to report them.
+- **Unreachable by design.** Soft keyboard (the device shrinks the layout
+  viewport, 786 → 472), an edge-to-edge safe area, and the device WebView build
+  (Chrome 135 vs Chromium 156). Those are what the manual methods below are for.
+
+Counting-rule note: `metrics.touchTargets` includes checkbox/radio inputs and
+uses `< 43.5px`, while the adaptation harness excludes checkbox/radio and uses
+`< 44px`. The pages compared here contain neither, so the counts agree; on pages
+with checkboxes the two rules will differ.
 
 ## How to take real-device numbers
 
