@@ -128,6 +128,14 @@ which win over the defaults.
 | Device label | — | `DSH_UI_LAB_DEVICE_LABEL` | `dsh-ui-lab` |
 | Playwright module | `--playwright` | `DSH_UI_LAB_PLAYWRIGHT` | package-local, then `$DSH_HOME/profiles/{web,desktop}` |
 
+## Real devices
+
+The two surfaces above are Chromium, at a profile viewport. A real phone differs
+in DPR, viewport height, WebView build, safe-area resolution and soft-keyboard
+behaviour. Measured deltas and the method for taking real-device numbers are in
+[Real devices](real-devices.md); keep real-device baselines separate from lab
+baselines.
+
 ## Credential discipline
 
 - `.cache/mobile-state.json` is a bearer credential for the paired device. It
